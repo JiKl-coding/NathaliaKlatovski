@@ -6,7 +6,8 @@ from wtforms import StringField, SubmitField, TextAreaField, PasswordField
 from wtforms.validators import DataRequired, Length
 from random import sample
 from datetime import timedelta
-from keys import BOT_EMAIL, BOT_PASSWORD, RECIPIENT_EMAIL, HOST, USERNAME, ADMIN_PASSWORD
+from keys import (BOT_EMAIL, BOT_PASSWORD, RECIPIENT_EMAIL, HOST, USERNAME, ADMIN_PASSWORD,
+                  APP_CON_SECRET_KEY, APP_SECRET_KEY)
 import smtplib
 
 # Flask
@@ -16,8 +17,8 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///poems.db'
 db = SQLAlchemy()
 db.init_app(app)
-app.config['SECRET_KEY'] = '4f8a2e6d9b1c7f0e3d5a8b6c7f0e3d1a'
-app.secret_key = 'kCHiq422fjslkjf348fjdIIsd61a45bn'
+app.config['SECRET_KEY'] = APP_CON_SECRET_KEY
+app.secret_key = APP_SECRET_KEY
 app.permanent_session_lifetime = timedelta(hours=1)
 
 
