@@ -70,7 +70,7 @@ with app.app_context():
 
 
 def send_mail(sender, message):
-    connection = smtplib.SMTP(host=HOST)
+    connection = smtplib.SMTP(host=HOST, port=587)
     connection.starttls()
     connection.login(user=BOT_EMAIL, password=BOT_PASSWORD)
 
