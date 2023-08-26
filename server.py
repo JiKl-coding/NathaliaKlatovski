@@ -9,16 +9,16 @@ from datetime import timedelta
 import smtplib
 import os
 
-BOT_EMAIL = "akriysbot@gmail.com"
-BOT_PASSWORD = "nrocreelpsnaxdci"
-RECIPIENT_EMAIL = "klatovskanatalie@gmail.com"
-HOST = "smtp.gmail.com"
+BOT_EMAIL = os.environ.get('E_BOT_EMAIL')
+BOT_PASSWORD = os.environ.get('E_BOT_PASSWORD')
+RECIPIENT_EMAIL = os.environ.get('E_RECIPIENT_EMAIL')
+HOST = os.environ.get('E_HOST')
 
-USERNAME = "Admin"
-ADMIN_PASSWORD = "Nathalia"
+USERNAME = os.environ.get('E_USERNAME')
+ADMIN_PASSWORD = os.environ.get('E_ADMIN_PASSWORD')
 
-APP_CON_SECRET_KEY = "4f8a2e6d9b1c7f0e3d5a8b6c7f0e3d1a"
-APP_SECRET_KEY = "kCHiq422fjslkjf348fjdIIsd61a45bn"
+APP_CON_SECRET_KEY = os.environ.get('E_APP_CON_SECRET_KEY')
+APP_SECRET_KEY = os.environ.get('E_APP_SECRET_KEY')
 
 # Flask
 app = Flask(__name__)
