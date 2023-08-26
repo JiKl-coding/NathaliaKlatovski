@@ -6,9 +6,19 @@ from wtforms import StringField, SubmitField, TextAreaField, PasswordField
 from wtforms.validators import DataRequired, Length
 from random import sample
 from datetime import timedelta
-from keys import (BOT_EMAIL, BOT_PASSWORD, RECIPIENT_EMAIL, HOST, USERNAME, ADMIN_PASSWORD,
-                  APP_CON_SECRET_KEY, APP_SECRET_KEY)
 import smtplib
+import os
+
+BOT_EMAIL = "akriysbot@gmail.com"
+BOT_PASSWORD = "nrocreelpsnaxdci"
+RECIPIENT_EMAIL = "klatovskanatalie@gmail.com"
+HOST = "smtp.gmail.com"
+
+USERNAME = "Admin"
+ADMIN_PASSWORD = "Nathalia"
+
+APP_CON_SECRET_KEY = "4f8a2e6d9b1c7f0e3d5a8b6c7f0e3d1a"
+APP_SECRET_KEY = "kCHiq422fjslkjf348fjdIIsd61a45bn"
 
 # Flask
 app = Flask(__name__)
@@ -199,4 +209,4 @@ def contact():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5002, host="10.0.1.35")
+    app.run(debug=False)
