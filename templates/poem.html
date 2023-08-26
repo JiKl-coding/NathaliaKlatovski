@@ -1,0 +1,19 @@
+{% include "header.html" %}
+
+  <div class="poem">
+    <h2>{{poem.title}}</h2>
+    <p>
+        {% for line in poem.poem_text.split("\n") %}
+            {{line}}<br>
+        {% endfor %}
+      <span id="date-span">{{poem.date}}</span>
+    </p>
+      {% if admin_logged %}
+        <p id="admin-edit"><a class="admin-icons" href="{{url_for('edit_poem', poem_id=poem.id)}}">✏️ Upravit️️</a>
+        <a class="admin-icons" href="{{url_for('delete_poem', poem_id=poem.id)}}">🗑️ Smazat</a></p>
+        {% endif %}</p>
+  </div>
+
+{% include "go_to_all_poems.html" %}
+
+{% include "footer.html" %}

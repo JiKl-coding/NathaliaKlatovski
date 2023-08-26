@@ -1,0 +1,19 @@
+{% include "header.html" %}
+
+  <div class="bio">
+      <div class="bio-text-cell">
+        <p>
+          Jsem Nathalia a vítám vás na svém webu.<br>
+          Ráda bych lidem opět přiblížila poezii a dodala jim skrze ní radost či podnět k zamyšlení. 
+          Budu ráda, když s mými básněmi strávíte chvilku svého času a necháte se jimi unášet,
+          kam jen vám to dovolí.
+        </p>
+      </div>
+      <div class="bio-silhouette-cell">
+        <img src="{{ url_for('static', filename='assets/img/bio-silhouette.jpg') }}" alt="silhouette of girl sitting on the bench">
+      </div>
+  </div>
+
+{% include "go_to_all_poems.html" %}
+
+{% include "footer.html" %}

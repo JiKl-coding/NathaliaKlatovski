@@ -1,0 +1,24 @@
+{% include "header.html" %}
+
+    {% with messages = get_flashed_messages() %}
+    <div class="flash-msg-container{% if messages %} active{% endif %}">
+        {% if messages %}
+            {% for message in messages %}
+                <h3>{{ message }}</h3>
+            {% endfor %}
+        {% endif %}
+    </div>
+    {% endwith %}
+
+<div class="all-poems">
+    {% for poem in all_poems %}
+    <p><a href="{{url_for('show_poem', poem_id=poem.id)}}">{{poem.title}}</a>
+        {% if admin_logged %}
+        <a class="admin-icons" href="{{url_for('edit_poem', poem_id=poem.id)}}">✏️️️</a>
+        <a class="admin-icons" href="{{url_for('delete_poem', poem_id=poem.id)}}">🗑️</a>
+        {% endif %}</p>
+    {% endfor%}
+
+</div>
+
+{% include "footer.html" %}

@@ -1,0 +1,24 @@
+{% include "header.html" %}
+
+
+    {% with messages = get_flashed_messages() %}
+    <div class="flash-msg-container{% if messages %} active{% endif %}">
+        {% if messages %}
+            {% for message in messages %}
+                <h3>{{ message }}</h3>
+            {% endfor %}
+        {% endif %}
+    </div>
+    {% endwith %}
+
+    <div class="all-poems">
+
+        <a href="{{ url_for('add_new_poem') }}">Přidat báseň</a>
+
+        <a href="{{ url_for('all_poems') }}">Zobrazit všechny básně</a>
+
+        <a href="{{ url_for('logout') }}">Odhlásit z adminu</a>
+
+    </div>
+
+{% include "footer.html" %}

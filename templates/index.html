@@ -1,0 +1,19 @@
+{% include "header.html" %}
+
+
+{% for poem in all_poems %}
+  <div class="poem-example">
+    <a href="{{url_for('show_poem', poem_id=poem.id)}}">
+      <p>
+          {% for line in poem.subtitle.split("\n") %}
+            {{line}}<br>
+          {% endfor %}
+          <span style="font-size: 3rem;">. . .</span>
+      </p>
+    </a>
+  </div>
+{% endfor %}
+
+{% include "go_to_all_poems.html" %}
+
+{% include "footer.html" %}

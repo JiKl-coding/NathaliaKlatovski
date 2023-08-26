@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nathalia Klatovski</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Sacramento&display=swap" rel="stylesheet">
+  <link href="https://fonts.cdnfonts.com/css/bhavuka" rel="stylesheet">
+</head>
+<body>
+  <nav>
+    <div class="header">
+      <div class="header-cells" id="silhuette-cell">
+        <img class="header-cells" id="main-img" src="{{ url_for('static', filename='assets/img/header-img.jpg') }}" alt="sexy girl silhuette">
+      </div>
+      <div class="header-cells" id="title-cell">
+        <h1><a href="{{url_for('home')}}">Nathalia <span id="header-visual">Klatovski</span></a></h1>
+      </div>
+      <div class="header-cells" id="buttons-cell">
+        <ul>
+          <li><a href="{{url_for('bio')}}">O MNĚ</a></li>
+          <li><a href={{url_for('contact')}}>KONTAKT</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>

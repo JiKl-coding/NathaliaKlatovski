@@ -1,0 +1,37 @@
+{% include "header.html" %}
+
+<div class="header-container">
+    {% if is_edit %}
+        <h2>Úprava básně</h2>
+    {% else %}
+        <h2>Nová báseň</h2>
+    {% endif %}
+</div>
+
+<div class="form-container">
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <div class="form-field">
+            <label class="form-label">{{ form.poem_title.label}}</label>
+            {{ form.poem_title(class="form-string-area") }}
+        </div>
+        <div class="form-field">
+            <label class="form-label">{{ form.poem_subtitle.label}}</label>
+            {{ form.poem_subtitle(class="form-textarea") }}
+        </div>
+        <div class="form-field">
+            <label class="form-label">{{ form.poem_text.label }}</label>
+            {{ form.poem_text(class="form-textarea") }}
+        </div>
+        <div class="form-field">
+            <label class="form-label">{{ form.poem_date.label }}</label>
+            {{ form.poem_date(class="form-string-area") }}
+        </div>
+        <div class="form-field" id="submit-cell">
+            {{ form.submit_button(class="form-button") }}
+        </div>
+
+    </form>
+</div>
+
+{% include "footer.html" %}

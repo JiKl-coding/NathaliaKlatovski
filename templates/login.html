@@ -1,0 +1,35 @@
+{% include "header.html" %}
+
+    {% with messages = get_flashed_messages() %}
+    <div class="flash-msg-container{% if messages %} active{% endif %}">
+        {% if messages %}
+            {% for message in messages %}
+                <h3>{{ message }}</h3>
+            {% endfor %}
+        {% endif %}
+    </div>
+    {% endwith %}
+
+<div class="form-container">
+
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+
+        <div class="form-field">
+            <label class="form-label">{{ form.username.label}}</label>
+            {{ form.username(class="form-string-area") }}
+        </div>
+
+        <div class="form-field">
+            <label class="form-label">{{ form.password.label}}</label>
+            {{ form.password(class="form-string-area") }}
+        </div>
+
+        <div class="form-field" id="submit-cell">
+            {{ form.submit_button(class="form-button") }}
+        </div>
+
+    </form>
+</div>
+
+{% include "footer.html" %}
