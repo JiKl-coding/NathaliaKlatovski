@@ -24,7 +24,7 @@ APP_SECRET_KEY = os.environ.get('E_APP_SECRET_KEY')
 app = Flask(__name__)
 
 # Connect to DB, set secret keys
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///poems.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DB_URI", 'sqlite:///poems.db')
 db = SQLAlchemy()
 db.init_app(app)
 app.config['SECRET_KEY'] = APP_CON_SECRET_KEY
