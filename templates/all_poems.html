@@ -20,5 +20,15 @@
     {% endfor%}
 
 </div>
+<script>
+$(document).ready(function() {
 
+  var headerHeight = $('.header').height();
+
+
+  $('html, body').animate({
+    scrollTop: headerHeight
+  }, 1000);
+});
+</script>
 {% include "footer.html" %}
