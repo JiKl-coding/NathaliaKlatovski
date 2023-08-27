@@ -2,12 +2,13 @@ from email_validator import validate_email, EmailSyntaxError
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, TextAreaField, PasswordField
+from wtforms import StringField, SubmitField, TextAreaField, PasswordField, validators
 from wtforms.validators import DataRequired, Length
 from random import sample
 from datetime import timedelta
 import smtplib
 import os
+from datetime import datetime
 
 BOT_EMAIL = os.environ.get('E_BOT_EMAIL')
 BOT_PASSWORD = os.environ.get('E_BOT_PASSWORD')
@@ -32,12 +33,19 @@ app.secret_key = APP_SECRET_KEY
 app.permanent_session_lifetime = timedelta(hours=1)
 
 
+def validate_date_format(form, field):
+    try:
+        datetime.strptime(field.data, '%d.%m.%Y')
+    except ValueError:
+        raise validators.ValidationError('Neplatný formát data. Očekává se dd.mm.yyyy.')
+
+
 # Form to add/edit poems
 class NewPoem(FlaskForm):
     poem_title = StringField(label="Název básně: ", validators=[DataRequired()])
     poem_subtitle = TextAreaField(label="Ukázka básně: ", validators=[DataRequired()])
     poem_text = TextAreaField(label="Celá báseň: ", validators=[DataRequired()])
-    poem_date = StringField(label="Datum (například 01.01.2020): ", validators=[DataRequired()])
+    poem_date = StringField(label="Datum (například 01.01.2020): ", validators=[DataRequired(), validate_date_format])
     submit_button = SubmitField(label="Potvrdit")
 
 
@@ -69,6 +77,10 @@ with app.app_context():
     db.create_all()
 
 
+def parse_date(date_str):
+    return datetime.strptime(date_str, '%d.%m.%Y')
+
+
 def send_mail(sender, message):
     connection = smtplib.SMTP(host=HOST, port=587)
     connection.starttls()
@@ -94,9 +106,12 @@ def home():
 def all_poems():
     result = db.session.execute(db.select(Poem))
     poems = result.scalars().all()
-    admin_logged = "admin" in session
-    return render_template("all_poems.html", all_poems=poems, admin_logged=admin_logged,
-                           web_title="Všechny básně")
+    try:
+        poems = sorted(poems, key=lambda poem: parse_date(poem.date), reverse=True)
+    finally:
+        admin_logged = "admin" in session
+        return render_template("all_poems.html", all_poems=poems, admin_logged=admin_logged,
+                               web_title="Všechny básně")
 
 
 @app.route("/poem/<int:poem_id>")
