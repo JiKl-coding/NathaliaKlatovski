@@ -87,7 +87,7 @@ def home():
     result = db.session.execute(db.select(Poem))
     poems = result.scalars().all()
     random_poems = sample(poems, 3)
-    return render_template("index.html", all_poems=random_poems)
+    return render_template("index.html", all_poems=random_poems, web_title="Nathalia Klatovski")
 
 
 @app.route("/all_poems")
@@ -95,24 +95,26 @@ def all_poems():
     result = db.session.execute(db.select(Poem))
     poems = result.scalars().all()
     admin_logged = "admin" in session
-    return render_template("all_poems.html", all_poems=poems, admin_logged=admin_logged)
+    return render_template("all_poems.html", all_poems=poems, admin_logged=admin_logged,
+                           web_title="Všechny básně")
 
 
 @app.route("/poem/<int:poem_id>")
 def show_poem(poem_id):
     requested_poem = db.get_or_404(Poem, poem_id)
-    return render_template("poem.html", poem=requested_poem, admin_logged="admin" in session)
+    return render_template("poem.html", poem=requested_poem, admin_logged="admin" in session,
+                           web_title=requested_poem.title)
 
 
 @app.route("/about_me")
 def bio():
-    return render_template("bio.html")
+    return render_template("bio.html", web_title="O mně")
 
 
 @app.route("/admin")
 def admin():
     if "admin" in session:
-        return render_template("admin.html")
+        return render_template("admin.html", web_title="Admin")
     else:
         return redirect(url_for("login"))
 
@@ -127,8 +129,8 @@ def login():
             return redirect(url_for("admin"))
         else:
             flash("Chybné údaje!", "danger")
-            return render_template("login.html", form=login_form)
-    return render_template("login.html", form=login_form)
+            return render_template("login.html", form=login_form, web_title="Login")
+    return render_template("login.html", form=login_form, web_title="Login")
 
 
 @app.route("/admin/logout")
@@ -156,7 +158,8 @@ def add_new_poem():
         flash(f"Báseň {poem_form.poem_title.data} přidána!", "succes")
         return redirect(url_for("admin"))
 
-    return render_template("new_poem.html", form=poem_form, is_edit=False)
+    return render_template("new_poem.html", form=poem_form, is_edit=False,
+                           web_title="Nová báseň")
 
 
 @app.route("/admin/edit_poem/<int:poem_id>", methods=["GET", "POST"])
@@ -177,7 +180,8 @@ def edit_poem(poem_id):
     else:
         return redirect(url_for("login"))
 
-    return render_template("new_poem.html", form=edit_form, is_edit=True)
+    return render_template("new_poem.html", form=edit_form, is_edit=True,
+                           web_title="Upravit báseň")
 
 
 @app.route("/admin/delete_poem/<int:poem_id>", methods=["GET", "POST"])
@@ -205,8 +209,8 @@ def contact():
             contact_form.message.data = ""
         except EmailSyntaxError:
             flash("Zadej platnou e-mailovou adresu!", "danger")
-    return render_template("contact.html", form=contact_form)
+    return render_template("contact.html", form=contact_form, web_title="Napište mi")
 
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=True)
