@@ -94,6 +94,15 @@ def send_mail(sender, message):
                         msg=final_message.encode('utf-8'))
 
 
+# redirect to https
+@app.before_request
+def before_request():
+    if not request.is_secure:
+        print(request.url)
+        url = request.url.replace('http://', 'https://', 1)
+        return redirect(url, code=301)
+
+
 @app.route("/")
 def home():
     result = db.session.execute(db.select(Poem))
